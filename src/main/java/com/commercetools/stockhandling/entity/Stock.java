@@ -16,6 +16,8 @@ import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.persistence.Version;
+import javax.validation.constraints.NotNull;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 
@@ -76,6 +78,10 @@ public class Stock extends BaseEntity {
 	@Column(name = "update_date", nullable = false)
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date updateDate;
+	
+	 @Version
+	 @NotNull
+	 private long version;
 
 	/**
 	 * Default Constructor can used as a quick way to initialize product object
@@ -176,6 +182,20 @@ public class Stock extends BaseEntity {
 	 */
 	public void setUpdateDate(Date updateDate) {
 		this.updateDate = updateDate;
+	}
+
+	/**
+	 * @return the version
+	 */
+	public long getVersion() {
+		return version;
+	}
+
+	/**
+	 * @param version the version to set
+	 */
+	public void setVersion(long version) {
+		this.version = version;
 	}
 
 	/* (non-Javadoc)
