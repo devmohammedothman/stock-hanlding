@@ -5,6 +5,8 @@ package com.commercetools.stockhandling.restapi;
 
 import java.util.List;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -61,7 +63,7 @@ public class StockRestController {
 	}
 
 	@PostMapping(produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<ResponseDTO> updateStock(@RequestBody StockDTO stocktDto) {
+	public ResponseEntity<ResponseDTO> updateStock(@Valid @RequestBody StockDTO stocktDto) {
 
 		// Define Custom Response DTO object with custom status Message and actual data
 		// update Stock

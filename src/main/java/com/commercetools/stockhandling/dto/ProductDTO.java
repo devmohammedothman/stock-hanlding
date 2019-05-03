@@ -5,6 +5,8 @@ package com.commercetools.stockhandling.dto;
 
 import java.util.Date;
 
+import javax.validation.constraints.NotNull;
+
 import com.fasterxml.jackson.annotation.JsonFormat;
 
 /**
@@ -18,6 +20,8 @@ public class ProductDTO extends BaseDTO {
 	 */
 	private static final long serialVersionUID = 1L;
 		
+	//Using  java validation  api to validate Product DTO not null attributes
+	@NotNull (message = "Product Id cannot be null")
 	private String productId;
 	
 	

@@ -5,6 +5,8 @@ package com.commercetools.stockhandling.restapi;
 
 import java.util.List;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -81,7 +83,7 @@ public class ProductRestController {
 	
 	
 	@PostMapping(produces = MediaType.APPLICATION_JSON_VALUE , consumes = MediaType.APPLICATION_JSON_VALUE) 
-	public ResponseEntity<ResponseDTO> saveProduct(@RequestBody ProductDTO productDto) {
+	public ResponseEntity<ResponseDTO> saveProduct(@Valid @RequestBody ProductDTO productDto) {
 		
 		// Define Custom Response DTO object with custom status Message and actual data
 		// save New Product
@@ -101,7 +103,7 @@ public class ProductRestController {
 	}
 	
 	@PutMapping(produces = MediaType.APPLICATION_JSON_VALUE , consumes = MediaType.APPLICATION_JSON_VALUE) 
-	public ResponseEntity<ResponseDTO> updateProduct(@RequestBody ProductDTO productDto) {
+	public ResponseEntity<ResponseDTO> updateProduct(@Valid @RequestBody ProductDTO productDto) {
 		
 		// Define Custom Response DTO object with custom status Message and actual data
 		// update Product

@@ -3,9 +3,13 @@
  */
 package com.commercetools.stockhandling.utils;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 
@@ -49,6 +53,22 @@ public class RestGlobalExceptionHandler {
 		if (ex instanceof DataIntegrityViolationException) {
 			
 			 resError = new ResponseError(StatusCode.BADREQUEST, "Supplied paramters not suffecient or not matching with DB constraints");
+		}
+		else if (ex instanceof MethodArgumentNotValidException)
+		{
+			MethodArgumentNotValidException validationEx = (MethodArgumentNotValidException) ex;
+			
+			//Get all errors default messages
+			 List<String> errorList = validationEx.getBindingResult()
+		                .getFieldErrors()
+		                .stream()
+		                .map(x -> x.getDefaultMessage())
+		                .collect(Collectors.toList());
+			
+			//Call static method to concatenate error string values
+	        String errors = SnippetUtils.join(errorList, " , ");
+	        
+	        resError = new ResponseError(StatusCode.BADREQUEST, errors);
 		}
 		else
 			 resError = new ResponseError(StatusCode.BADREQUEST, "Error While Handling Request");
