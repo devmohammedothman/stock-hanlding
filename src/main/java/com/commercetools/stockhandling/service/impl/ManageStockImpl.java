@@ -119,6 +119,8 @@ public class ManageStockImpl extends BasicServiceImpl<BaseDTO, BaseEntity> imple
 		// check if product entity found to be updated
 		if (savedEntity != null) {
 			Long id = savedEntity.getId();
+			Long version = savedEntity.getVersion();
+			
 			Date creationDate = savedEntity.getCreationDate();
 
 			// converting product dto into entity
@@ -126,6 +128,7 @@ public class ManageStockImpl extends BasicServiceImpl<BaseDTO, BaseEntity> imple
 
 			// set pre defined properties before saving
 			savedEntity.setId(id);
+			savedEntity.setVersion(version);
 			savedEntity.setCreationDate(creationDate);
 
 			savedEntity = productDao.save(savedEntity);
@@ -190,8 +193,9 @@ public class ManageStockImpl extends BasicServiceImpl<BaseDTO, BaseEntity> imple
 	 */
 	@Override
 	public StockDTO updateStock(StockDTO stockDTO) {
+		
 		// Define stock DTO result object
-		StockDTO addedStock = null;
+		StockDTO resultStock = null;
 
 		// Define added stock entity
 		Stock addedStockEntity = new Stock();
@@ -204,8 +208,22 @@ public class ManageStockImpl extends BasicServiceImpl<BaseDTO, BaseEntity> imple
 		// check if product has Stock already
 		Stock foundStock = stockDao.findByProductId(stockDTO.getProduct().getProductId());
 
-		if (foundStock != null) {
+		//check if stock is already exist for the same product before update its value
+		//because it  may send existing product but for another stock
+		if(foundStock != null && !foundStock.getStockId().equals(stockDTO.getStockId()))
+			throw  new StockHandlingException(StatusCode.BADREQUEST , "Supplied Stock ID not matching with it's existing  product ID");
+		
+		// Means that this product does not have stock and we will add it
+		else if(foundStock == null)
+		{
+			resultStock = addStock(stockDTO);
+			return resultStock;
+		}
+		
+		//update existing stock
+		if(foundStock != null) {
 			Long id = foundStock.getId();
+			Long version = foundStock.getVersion();
 
 			// define temp product object to not update existing product
 			Product tempProduct = foundStock.getProduct();
@@ -213,21 +231,17 @@ public class ManageStockImpl extends BasicServiceImpl<BaseDTO, BaseEntity> imple
 			addedStockEntity = (Stock) convertToEntity(foundStock, stockDTO);
 
 			addedStockEntity.setId(id);
-
+			addedStockEntity.setVersion(version);
 			addedStockEntity.setProduct(tempProduct);
 
 			// save stock object
 			addedStockEntity = stockDao.save(addedStockEntity);
 
 			// convert added stock to dto result object
-			addedStock = (StockDTO) convertToDTO(addedStockEntity, stockDTO);
+			resultStock = (StockDTO) convertToDTO(addedStockEntity, stockDTO);
 		}
-		// Means that this product does not have stock and we will add it
-		else {
-			addedStock = addStock(stockDTO);
-		}
-
-		return addedStock;
+		
+		return resultStock;
 	}
 
 	/**

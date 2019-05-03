@@ -14,6 +14,8 @@ import javax.persistence.PrePersist;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.persistence.Version;
+import javax.validation.constraints.NotNull;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 
@@ -60,6 +62,10 @@ public class Product extends BaseEntity {
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date creationDate;
 	
+	@Column(name = "version")
+	@Version
+	@NotNull
+	private Long version;
 
 	/**
 	 * Default Constructor can used as a quick way to initialize product object
@@ -134,6 +140,20 @@ public class Product extends BaseEntity {
 		this.creationDate = creationDate;
 	}
 	
+	/**
+	 * @return the version
+	 */
+	public Long getVersion() {
+		return version;
+	}
+
+	/**
+	 * @param version the version to set
+	 */
+	public void setVersion(Long version) {
+		this.version = version;
+	}
+
 	/**
 	 * This life cycle hooks to manage default values if not supported by user
 	 * example created date 

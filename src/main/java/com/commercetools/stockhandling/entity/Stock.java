@@ -5,6 +5,7 @@ package com.commercetools.stockhandling.entity;
 
 import java.util.Date;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -55,7 +56,7 @@ public class Stock extends BaseEntity {
 	 * Represent relation between Stock and Product which is One to One mapping
 	 * Stock object is the owner of product 
 	 */
-	@OneToOne(fetch =  FetchType.LAZY)
+	@OneToOne(cascade = CascadeType.PERSIST, fetch =  FetchType.LAZY)
 	@JoinColumn(name="product_id",nullable = false , unique = true , referencedColumnName="product_id", columnDefinition="VARCHAR(45)")
 	private Product product;
 	
@@ -79,9 +80,10 @@ public class Stock extends BaseEntity {
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date updateDate;
 	
-	 @Version
-	 @NotNull
-	 private long version;
+	@Column(name = "version")
+	@Version
+	@NotNull
+	private Long version;
 
 	/**
 	 * Default Constructor can used as a quick way to initialize product object
@@ -94,10 +96,28 @@ public class Stock extends BaseEntity {
 	 * @param quantity
 	 * @param soldQuantity
 	 */
-	public Stock(String stockId, int quantity, int soldQuantity) {
+	public Stock(String stockId, int quantity, int soldQuantity, Date updateDate) {
 		this.stockId = stockId;
 		this.quantity = quantity;
 		this.soldQuantity = soldQuantity;
+		this.updateDate = updateDate;
+	}
+	
+
+	/**
+	 * @param stockId
+	 * @param product
+	 * @param quantity
+	 * @param soldQuantity
+	 * @param updateDate
+	 */
+	public Stock(String stockId, int quantity, int soldQuantity, Date updateDate,Product product) {
+		super();
+		this.stockId = stockId;
+		this.product = product;
+		this.quantity = quantity;
+		this.soldQuantity = soldQuantity;
+		this.updateDate = updateDate;
 	}
 
 	/**
@@ -187,14 +207,14 @@ public class Stock extends BaseEntity {
 	/**
 	 * @return the version
 	 */
-	public long getVersion() {
+	public Long getVersion() {
 		return version;
 	}
 
 	/**
 	 * @param version the version to set
 	 */
-	public void setVersion(long version) {
+	public void setVersion(Long version) {
 		this.version = version;
 	}
 

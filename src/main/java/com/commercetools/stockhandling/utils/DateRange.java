@@ -19,11 +19,11 @@ public class DateRange {
 
 		Date result = null;
 
-		switch (timeParamaValue) {
+		switch (timeParamaValue.toLowerCase()) {
 		case "today":
 			result = getTodayDate();
 			break;
-		case "lastMonth":
+		case "lastmonth":
 			result = getLastMonthDate();
 			break;
 		default:
