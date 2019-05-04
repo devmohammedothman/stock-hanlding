@@ -1,16 +1,42 @@
-**Edit a file, create a new file, and clone from Bitbucket in under 2 minutes**
+#Stock Handling Managment REST API 
 
-When you're done, you can delete the content in this README and update the file with details for others getting started with your repository.
+This project aims to identify some of latest technologies and best practices applied in JAVA , SPRING BOOT.
 
-*We recommend that you open this README in another tab as you perform the tasks below. You can [watch our video](https://youtu.be/0ocf7u76WSo) for a full demo of all the steps in this tutorial. Open the video in a new tab to avoid leaving Bitbucket.*
+While Business is intended to be simple as a result of focusing on used technologies but it also cover some of edge cases and race conditions that might be take place
+in typical work environments.
+
+Business briefly describes how to manage a stock of products by 
+ 
+ ** Product possible Operations
+ -- Add  Product
+ -- Update Existing Product
+ -- Get List of Products / Get Detialed Product
+ -- Delete Product
+ 
+ **  Stock Possible Operations
+ -- Add/Update Stock for Existing Product
+ -- Get List of Existing Stock 
+ -- Get Detialed Stock by Product ID
+ -- Get Statistics about Top Available and Top Sold Products
+ -- Delete Stock for a certain product
+ 
+ ** Assumptions And Constraints
+ 
+ -- Product Must be added firstly before Add/Update Stock othre wise get Error Message
+ -- Mapping relation between Product and Stock is Unidirectional One to One for sake of performance. 
+ -- So based on above Stock table must have only one unique product , Stock can not have multiple products.
+ -- Get Stock Statistics by Date Range since Last Month till Today or just Today
+ -- Stock can be updated with product quantity and sold quantity if exists
+ -- concurrent Stock updating not allowed and will return error message , scenario can be simulated on Jmeter (https://jmeter.apache.org/)
 
 ---
 
-## Edit a file
+## Project Architecture
 
-You’ll start by editing this README file to learn how to edit a file in Bitbucket.
+Project is build with  robust and extensible architecture which allow for future updates , considering using Generics , Java 8 Streams
+Also project is runnig by default on H2 Database and also Mysql script exists for sake of multi DB providers
 
-1. Click **Source** on the left side.
+1. Entity package which include DB
 2. Click the README.md link from the list of files.
 3. Click the **Edit** button.
 4. Delete the following text: *Delete this line to make a change to the README from Bitbucket.*
