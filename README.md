@@ -1,4 +1,4 @@
-#Stock Handling Managment REST API 
+## Stock Handling Managment REST API 
 
 This project aims to identify some of latest technologies and best practices applied in JAVA , SPRING BOOT.
 
@@ -36,36 +36,66 @@ Business briefly describes how to manage a stock of products by
 Project is build with  robust and extensible architecture which allow for future updates , considering using Generics , Java 8 Streams
 Also project is runnig by default on H2 Database and also Mysql script exists for sake of multi DB providers
 
-1. Entity package which include DB
-2. Click the README.md link from the list of files.
-3. Click the **Edit** button.
-4. Delete the following text: *Delete this line to make a change to the README from Bitbucket.*
-5. After making your change, click **Commit** and then **Commit** again in the dialog. The commit page will open and you’ll see the change you just made.
-6. Go back to the **Source** page.
+1. Entity package which include DB Model Classes
+2. Dao package which include JPA Data persistece repositories
+3. Service which include business service application interfaces
+4. Service impl which include business service application implementaton classes
+5. Rest API which has all rest api controllers
+6. DTO which is mapping classes for Entity/Model classes applying DTO pattern for sake of separation of concerns
+7. Config which is related project configurations 
+8. Utils which is util classes supporting either technology aspects or business common need utilities
+9. Unit Testing , DAO repository integration Testing , MVC Controller integration Testing.
+10.Logging through all of project tiers applied with Aspect Oriented Programming.
+11. Generic implementatonfor Response Entity supplied with Custom (Response Status , Response Error , Exception Handler).
+
+Not all test  scenarios covered but most crucial tests included for clarification.     
 
 ---
 
-## Create a file
+## How To Run
 
-Next, you’ll add a new file to this repository.
+Since that this project is built with maven so you can follow below steps after firstly Clonning Project from Remote Repository into your local machine
 
-1. Click the **New file** button at the top of the **Source** page.
-2. Give the file a filename of **contributors.txt**.
-3. Enter your name in the empty file space.
-4. Click **Commit** and then **Commit** again in the dialog.
-5. Go back to the **Source** page.
+* mvn install to install all needed dependencies for the project (stable internet connection needed)
 
-Before you move on, go ahead and explore the repository. You've already seen the **Source** page, but check out the **Commits**, **Branches**, and **Settings** pages.
+* mvn spring-boot:run to run project and it will be start up on embeded tomcat container which is built in spring-boot.
+
+* mvn test if you need to see result of Unit testing and integration tests
+
+## Project Startup Useful URLS
+
+1. Base URL  http://localhost:8181/stock-handling/ 
+2. Swagger API documentation URL http://localhost:8181/stock-handling/swagger-ui.html#/
+3. H2 console http://localhost:8181/stock-handling/h2-console/  
+		
+		JDBC URL : jdbc:h2:mem:db-stock-handling
+		
+		user name : root
+		
+		password : root 
+		
+4. Log File creation path ${user.home}/StockHandling/backend/logs/logger.log		
+	
+** you can check Rest Api urls from Swagger API documentation and here are just samples
+
+Get All Products  http://localhost:8181/stock-handling/api/product
+
+Get All Stocks http://localhost:8181/stock-handling/api/stock	
+		
 
 ---
 
-## Clone a repository
+## Used Technologies
 
-Use these steps to clone from SourceTree, our client for using the repository command-line free. Cloning allows you to work on your files locally. If you don't yet have SourceTree, [download and install first](https://www.sourcetreeapp.com/). If you prefer to clone from the command line, see [Clone a repository](https://confluence.atlassian.com/x/4whODQ).
-
-1. You’ll see the clone button under the **Source** heading. Click that button.
-2. Now click **Check out in SourceTree**. You may need to create a SourceTree account or log in.
-3. When you see the **Clone New** dialog in SourceTree, update the destination path and name if you’d like to and then click **Clone**.
-4. Open the directory you just created to see your repository’s files.
-
-Now that you're more familiar with your Bitbucket repository, go ahead and add a new file locally. You can [push your change back to Bitbucket with SourceTree](https://confluence.atlassian.com/x/iqyBMg), or you can [add, commit,](https://confluence.atlassian.com/x/8QhODQ) and [push from the command line](https://confluence.atlassian.com/x/NQ0zDQ).
+Spring Boot — 2.1.4.RELEASE
+JDK — 1.8  Streams applied in a lot of test cases specially those for Dao integration test
+Spring Framework 
+Hibernate 
+Spring Data JPA
+Aspect Oriented Programming
+Maven 
+Swagger 2+
+Java Validation API
+Junit 5 
+Mockito Framework
+IDE — Eclipse or Spring Tool Suite (STS)
