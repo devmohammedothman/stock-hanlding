@@ -9,6 +9,7 @@ import java.util.stream.Collectors;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.orm.ObjectOptimisticLockingFailureException;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -58,6 +59,10 @@ public class RestGlobalExceptionHandler {
 		if (ex instanceof DataIntegrityViolationException) {
 			
 			 resError = new ResponseError(StatusCode.BADREQUEST, "Supplied paramters not suffecient or not matching with DB constraints");
+		}
+		if (ex instanceof ObjectOptimisticLockingFailureException) {
+			
+			 resError = new ResponseError(StatusCode.OUTDATEDSTOCK, "Outdated stock, because a newer stock was processed first");
 		}
 		else if (ex instanceof MethodArgumentNotValidException)
 		{

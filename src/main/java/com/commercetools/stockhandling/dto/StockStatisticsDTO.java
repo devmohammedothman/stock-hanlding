@@ -5,10 +5,14 @@ package com.commercetools.stockhandling.dto;
 
 import java.util.List;
 
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
+
 /**
  * @author M.Othman
  *
  */
+@ApiModel(description = "All details about the Stock Statistics")
 public class StockStatisticsDTO extends BaseDTO {
 
 	/**
@@ -16,10 +20,13 @@ public class StockStatisticsDTO extends BaseDTO {
 	 */
 	private static final long serialVersionUID = 1L;
 	
+	@ApiModelProperty(notes = "date range that can be used for search" )
 	private String rang;
 	
+	@ApiModelProperty(notes = "Top Available Products in since supplied Date Time Range")
 	private List<StockDTO> topAvailableProducts;
 	
+	@ApiModelProperty(notes = "Top Sold Products in since supplied Date Time Range")
 	private List<StockDTO> topSellingProducts;
 
 	/**

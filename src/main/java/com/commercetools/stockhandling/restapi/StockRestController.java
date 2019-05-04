@@ -27,6 +27,11 @@ import com.commercetools.stockhandling.utils.ResponseDTO;
 import com.commercetools.stockhandling.utils.RestProvider;
 import com.commercetools.stockhandling.utils.StatusCode;
 
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiParam;
+import io.swagger.annotations.ApiResponse;
+import io.swagger.annotations.ApiResponses;
 /**
  * @author M.Othman
  *
@@ -34,6 +39,7 @@ import com.commercetools.stockhandling.utils.StatusCode;
 
 @RestController
 @RequestMapping("/api/stock")
+@Api(value = "Stock Handling REST API")
 public class StockRestController {
 
 	@Autowired
@@ -42,6 +48,10 @@ public class StockRestController {
 	@Autowired
 	private ManageStock stockService;
 
+	@ApiOperation(value = "View a list of available Stocks")
+	@ApiResponses(value = { 
+			@ApiResponse(code = 200, message = "Data Retreived Successfully"),
+			@ApiResponse(code = 404, message = "The resource you were trying to reach is not found") })
 	@GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<ResponseDTO> getAllStocks() {
 
@@ -62,6 +72,7 @@ public class StockRestController {
 		return restProvider.addObj(responseDto);
 	}
 
+	@ApiOperation(value = "Add/update Stock for existing product")
 	@PostMapping(produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<ResponseDTO> updateStock(@Valid @RequestBody StockDTO stocktDto) {
 
@@ -82,6 +93,7 @@ public class StockRestController {
 		return restProvider.addObj(responseDto);
 	}
 
+	@ApiOperation(value = "Get Stock By Product ID ** only one Product has only one Stock object")
 	@GetMapping(path = "/{productId}", produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<ResponseDTO> getStockByProductById(@PathVariable("productId") String productId) {
 
@@ -102,6 +114,7 @@ public class StockRestController {
 		return restProvider.addObj(responseDto);
 	}
 
+	@ApiOperation(value = "Delete Existing Stock with Stock ID")
 	@DeleteMapping(path = "{stockId}", produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<ResponseDTO> deleteStock(@PathVariable("stockId") String stockId) {
 
@@ -121,11 +134,12 @@ public class StockRestController {
 		return restProvider.addObj(responseDto);
 	}
 
+	@ApiOperation(value = "Receive some statistics about our stocks")
+	@ApiParam(allowableValues = "today , lastMonth")
 	@GetMapping(path = "/statistics", produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<ResponseDTO> getStatistics(
 			@RequestParam(value = "time", defaultValue = "today") String time) {
 
-				
 		// Define Custom Response DTO object with custom status Message and actual data
 		// get all topAvailableProducts List
 		ResponseDTO responseDto = null;
@@ -148,8 +162,8 @@ public class StockRestController {
 			// check if there is value in top sold products list
 			if (topSoldProducts != null && topSoldProducts.size() > 0)
 				resultStatistics.setTopSellingProducts(topSoldProducts);
-			
-			//set range in returned DTO object
+
+			// set range in returned DTO object
 			resultStatistics.setRang(time);
 
 			responseDto = new ResponseDTO(StatusCode.SUCCESSFULL, "Data Retreived Successfully", resultStatistics);

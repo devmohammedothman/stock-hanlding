@@ -25,6 +25,12 @@ import com.commercetools.stockhandling.utils.ResponseDTO;
 import com.commercetools.stockhandling.utils.RestProvider;
 import com.commercetools.stockhandling.utils.StatusCode;
 
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiParam;
+import io.swagger.annotations.ApiResponse;
+import io.swagger.annotations.ApiResponses;
+
 /**
  * @author M.Othman
  *
@@ -32,6 +38,7 @@ import com.commercetools.stockhandling.utils.StatusCode;
 
 @RestController
 @RequestMapping("/api/product")
+@Api(value = "Stock Handling REST API")
 public class ProductRestController {
 
 	@Autowired
@@ -40,6 +47,10 @@ public class ProductRestController {
 	@Autowired
 	private ManageStock stockService;
 
+	@ApiOperation(value = "View a list of available Products")
+	@ApiResponses(value = { 
+			@ApiResponse(code = 200, message = "Data Retreived Successfully"),
+			@ApiResponse(code = 404, message = "The resource you were trying to reach is not found") })
 	@GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<ResponseDTO> getAllProducts() {
 		
@@ -60,7 +71,7 @@ public class ProductRestController {
 		return restProvider.addObj(responseDto);
 	}
 	
-	
+	@ApiOperation(value = "Get Product By Product ID")
 	@GetMapping(path="/{productId}", produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<ResponseDTO> getProductById(@PathVariable("productId") String productId) {
 		
@@ -81,7 +92,8 @@ public class ProductRestController {
 		return restProvider.addObj(responseDto);
 	}
 	
-	
+	@ApiOperation(value = "Add New Product")
+	@ApiParam(value="Product object with mandatory product ID value")
 	@PostMapping(produces = MediaType.APPLICATION_JSON_VALUE , consumes = MediaType.APPLICATION_JSON_VALUE) 
 	public ResponseEntity<ResponseDTO> saveProduct(@Valid @RequestBody ProductDTO productDto) {
 		
@@ -102,6 +114,8 @@ public class ProductRestController {
 		return restProvider.addObj(responseDto);
 	}
 	
+	@ApiOperation(value = "Update Existing Product")
+	@ApiParam(value="Product object with mandatory product ID value")
 	@PutMapping(produces = MediaType.APPLICATION_JSON_VALUE , consumes = MediaType.APPLICATION_JSON_VALUE) 
 	public ResponseEntity<ResponseDTO> updateProduct(@Valid @RequestBody ProductDTO productDto) {
 		
@@ -122,6 +136,7 @@ public class ProductRestController {
 		return restProvider.addObj(responseDto);
 	}
 	
+	@ApiOperation(value = "Delete Existing Product with Product ID")
 	@DeleteMapping(path="{productId}",produces = MediaType.APPLICATION_JSON_VALUE) 
 	public ResponseEntity<ResponseDTO> deleteProduct(@PathVariable("productId") String productId) {
 		
