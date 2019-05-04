@@ -7,27 +7,29 @@ in typical work environments.
 
 Business briefly describes how to manage a stock of products by 
  
- ** Product possible Operations
- -- Add  Product
- -- Update Existing Product
- -- Get List of Products / Get Detialed Product
- -- Delete Product
+ ** Product API Endpoint
+
+1. Add  Product
+2. Update Existing Product
+3. Get List of Products / Get Detialed Product
+4. Delete Product
  
- **  Stock Possible Operations
- -- Add/Update Stock for Existing Product
- -- Get List of Existing Stock 
- -- Get Detialed Stock by Product ID
- -- Get Statistics about Top Available and Top Sold Products
- -- Delete Stock for a certain product
+ **  Stock API Endpoint 
+
+1. Add/Update Stock for Existing Product
+2. Get List of Existing Stock 
+3. Get Detialed Stock by Product ID
+4. Get Statistics about Top Available and Top Sold Products
+5. Delete Stock for a certain product
  
  ** Assumptions And Constraints
  
- -- Product Must be added firstly before Add/Update Stock othre wise get Error Message
- -- Mapping relation between Product and Stock is Unidirectional One to One for sake of performance. 
- -- So based on above Stock table must have only one unique product , Stock can not have multiple products.
- -- Get Stock Statistics by Date Range since Last Month till Today or just Today
- -- Stock can be updated with product quantity and sold quantity if exists
- -- concurrent Stock updating not allowed and will return error message , scenario can be simulated on Jmeter (https://jmeter.apache.org/)
+ 1. Product Must be added firstly before Add/Update Stock othre wise get Error Message
+ 2. Mapping relation between Product and Stock is Unidirectional One to One for sake of performance. 
+ 3. So based on above Stock table must have only one unique product , Stock can not have multiple products.
+ 4. Get Stock Statistics by Date Range since Last Month till Today or just Today
+ 5. Stock can be updated with product quantity and sold quantity if exists
+ 6. concurrent Stock updating not allowed and will return error message , scenario can be simulated on Jmeter (https://jmeter.apache.org/)
 
 ---
 
@@ -74,28 +76,29 @@ Since that this project is built with maven so you can follow below steps after 
 		
 		password : root 
 		
-4. Log File creation path ${user.home}/StockHandling/backend/logs/logger.log		
+4. Log File creation path 
+
+		${user.home}/StockHandling/backend/logs/logger.log		
 	
 ** you can check Rest Api urls from Swagger API documentation and here are just samples
 
-Get All Products  http://localhost:8181/stock-handling/api/product
+* Get All Products  http://localhost:8181/stock-handling/api/product
 
-Get All Stocks http://localhost:8181/stock-handling/api/stock	
+* Get All Stocks http://localhost:8181/stock-handling/api/stock	
 		
 
 ---
 
 ## Used Technologies
 
-Spring Boot — 2.1.4.RELEASE
-JDK — 1.8  Streams applied in a lot of test cases specially those for Dao integration test
-Spring Framework 
-Hibernate 
-Spring Data JPA
-Aspect Oriented Programming
-Maven 
-Swagger 2+
-Java Validation API
-Junit 5 
-Mockito Framework
-IDE — Eclipse or Spring Tool Suite (STS)
+1. Spring Boot — 2.1.4.RELEASE
+2. JDK — 1.8  Streams applied in a lot of test cases specially those for Dao integration test
+3. Spring Framework 
+4. Hibernate 
+5. Spring Data JPA
+6. Aspect Oriented Programming
+7. Maven 
+8. Swagger 2+
+9. Java Validation API
+10. Junit 5 
+11. Mockito Framework
