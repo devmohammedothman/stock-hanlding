@@ -106,10 +106,10 @@ public class Stock extends BaseEntity {
 
 	/**
 	 * @param stockId
-	 * @param product
 	 * @param quantity
 	 * @param soldQuantity
 	 * @param updateDate
+	 * @param product
 	 */
 	public Stock(String stockId, int quantity, int soldQuantity, Date updateDate,Product product) {
 		super();

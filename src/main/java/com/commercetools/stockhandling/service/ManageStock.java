@@ -33,7 +33,7 @@ public interface ManageStock {
 	
 	List<StockDTO> getAllStocks();
 	
-	boolean deleteStockt(String stockId);
+	boolean deleteStock(String stockId);
 	
 	List<StockDTO> findTop3StocksOrderByAvailableQuantity(Date timeSearchValue);
 	

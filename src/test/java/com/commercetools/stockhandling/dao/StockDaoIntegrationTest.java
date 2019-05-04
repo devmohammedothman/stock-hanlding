@@ -89,19 +89,15 @@ class StockDaoIntegrationTest {
 		// assert that no value retrieved if product not found
 		assertNull(notFoundStock);
 	}
-	
-	
+
 	@Test
 	void testFindTop3ByUpdateDateAfterOrderByQuantityDesc() {
 
 		// 1-given that we have already stock object exist
 
 		stockList = Stream
-				.of(
-						stockObj,
-						new Stock("s2", 15, 5, new Date(), new Product("p2", "product 02")),
-						new Stock("s3", 20, 6, new Date(), new Product("p3", "product 03"))
-					)
+				.of(stockObj, new Stock("s2", 15, 5, new Date(), new Product("p2", "product 02")),
+						new Stock("s3", 20, 6, new Date(), new Product("p3", "product 03")))
 				.collect(Collectors.toCollection(ArrayList::new));
 
 		// persist list of stocks
@@ -110,17 +106,18 @@ class StockDaoIntegrationTest {
 		entityManager.flush();
 
 		// 2-when method under test executed
-		List<Stock> topAvailableFoundStockList = stockRepository.findTop3ByUpdateDateAfterOrderByQuantityDesc(DateRange.getDateForSearch("today"));
-		
- 		// 3-then expected value
-		
+		List<Stock> topAvailableFoundStockList = stockRepository
+				.findTop3ByUpdateDateAfterOrderByQuantityDesc(DateRange.getDateForSearch("today"));
+
+		// 3-then expected value
+
 		// order stock list by available quantity before assertion
 		stockList.sort(Comparator.comparingInt(Stock::getQuantity).reversed());
-		
+
 		assertNotNull(topAvailableFoundStockList);
-		
+
 		assertEquals(stockList, topAvailableFoundStockList);
-		
+
 	}
 
 	@Test
@@ -128,30 +125,28 @@ class StockDaoIntegrationTest {
 
 		// 1-given that we have already stock object exist
 
-				stockList = Stream
-						.of(
-								stockObj,
-								new Stock("s2", 6, 30, new Date(), new Product("p2", "product 02")),
-								new Stock("s3", 5, 40, new Date(), new Product("p3", "product 03"))
-							)
-						.collect(Collectors.toCollection(ArrayList::new));
+		stockList = Stream
+				.of(stockObj, new Stock("s2", 6, 30, new Date(), new Product("p2", "product 02")),
+						new Stock("s3", 5, 40, new Date(), new Product("p3", "product 03")))
+				.collect(Collectors.toCollection(ArrayList::new));
 
-				// persist list of stocks
-				stockList.forEach(x -> entityManager.persist(x));
+		// persist list of stocks
+		stockList.forEach(x -> entityManager.persist(x));
 
-				entityManager.flush();
+		entityManager.flush();
 
-				// 2-when method under test executed
-				List<Stock> topSoldFoundStockList = stockRepository.findTop3ByUpdateDateAfterOrderBySoldQuantityDesc(DateRange.getDateForSearch("today"));
-				
-		 		// 3-then expected value
-				
-				// order stock list by available quantity before assertion
-				stockList.sort(Comparator.comparingInt(Stock::getSoldQuantity).reversed());
-				
-				assertNotNull(topSoldFoundStockList);
-				
-				assertEquals(stockList, topSoldFoundStockList);
+		// 2-when method under test executed
+		List<Stock> topSoldFoundStockList = stockRepository
+				.findTop3ByUpdateDateAfterOrderBySoldQuantityDesc(DateRange.getDateForSearch("today"));
+
+		// 3-then expected value
+
+		// order stock list by available quantity before assertion
+		stockList.sort(Comparator.comparingInt(Stock::getSoldQuantity).reversed());
+
+		assertNotNull(topSoldFoundStockList);
+
+		assertEquals(stockList, topSoldFoundStockList);
 	}
 
 }

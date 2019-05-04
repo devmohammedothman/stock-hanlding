@@ -28,6 +28,27 @@ public class ProductDTO extends BaseDTO {
 	private String name;
 	
 	
+	
+	/**
+	 * Default constructor
+	 */
+	public ProductDTO() {
+	}
+	
+	
+
+	/**
+	 * @param productId
+	 * @param name
+	 */
+	public ProductDTO(@NotNull(message = "Product Id cannot be null") String productId, String name) {
+	
+		this.productId = productId;
+		this.name = name;
+	}
+
+
+
 	@JsonFormat(shape = JsonFormat.Shape.STRING)
 	private Date creationDate;
 

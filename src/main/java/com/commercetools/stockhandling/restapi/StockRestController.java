@@ -103,20 +103,20 @@ public class StockRestController {
 	}
 
 	@DeleteMapping(path = "{stockId}", produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<ResponseDTO> deleteProduct(@PathVariable("stockId") String stockId) {
+	public ResponseEntity<ResponseDTO> deleteStock(@PathVariable("stockId") String stockId) {
 
 		// Define Custom Response DTO object with custom status Message and actual data
 		// Delete Stock
 		ResponseDTO responseDto = null;
 
 		// Get Result Product Object
-		boolean result = stockService.deleteStockt(stockId);
+		boolean result = stockService.deleteStock(stockId);
 
 		if (result)
 			responseDto = new ResponseDTO(StatusCode.SUCCESSFULL, "Data Deleted Successfully",
 					"Data Deleted Successfully");
 		else
-			responseDto = new ResponseDTO(StatusCode.BADREQUEST, "This product not exist", null);
+			responseDto = new ResponseDTO(StatusCode.BADREQUEST, "This Stock not exist", null);
 
 		return restProvider.addObj(responseDto);
 	}

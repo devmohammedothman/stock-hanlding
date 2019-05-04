@@ -203,7 +203,7 @@ public class ManageStockImpl extends BasicServiceImpl<BaseDTO, BaseEntity> imple
 		// check found stock have product object
 		if (stockDTO.getProduct() == null || stockDTO.getProduct().getProductId() == null
 				|| stockDTO.getProduct().getProductId().isEmpty())
-			throw new StockHandlingException(StatusCode.BADREQUEST, "There is no supplied product ");
+			throw new StockHandlingException(StatusCode.BADREQUEST, "There is no supplied product");
 
 		// check if product has Stock already
 		Stock foundStock = stockDao.findByProductId(stockDTO.getProduct().getProductId());
@@ -291,7 +291,7 @@ public class ManageStockImpl extends BasicServiceImpl<BaseDTO, BaseEntity> imple
 	 * Delete Stock by Stock Id
 	 */
 	@Override
-	public boolean deleteStockt(String stockId) {
+	public boolean deleteStock(String stockId) {
 
 		// find stock object by stock id
 		Stock foundObj = stockDao.findByStockId(stockId);

@@ -15,25 +15,64 @@ import com.fasterxml.jackson.annotation.JsonFormat;
  *
  */
 public class StockDTO extends BaseDTO {
-	
+
 	private static final long serialVersionUID = 1L;
-	
-	//Using  java validation  api to validate Stock DTO not null attributes
-	@NotNull (message = "Stock Id cannot be null")
+
+	// Using java validation api to validate Stock DTO not null attributes
+	@NotNull(message = "Stock Id cannot be null")
 	private String stockId;
-	
-	@NotNull (message = "Product cannot be null")
+
+	@NotNull(message = "Product cannot be null")
 	private ProductDTO product;
 
 // this validation will be needed  if there is at least exist one item in stock	
-	@NotNull (message = "Quanitity value cannot be null")
+	@NotNull(message = "Quanitity value cannot be null")
 	@Min(value = 1, message = "CANNOT MAKE STOCK WITH ZERO QUANTITY  FOR PRODUCT AT LEAST ONE MUST BE EXIST")
 	private int quantity;
-	
+
 	private int soldQuantity;
-	
-	@JsonFormat(shape = JsonFormat.Shape.STRING	)
+
+	@JsonFormat(shape = JsonFormat.Shape.STRING)
 	private Date timeStamp;
+
+	/**
+	 * Default Constructor
+	 */
+	public StockDTO() {
+	}
+
+	/**
+	 * @param stockId
+	 * @param quantity
+	 * @param soldQuantity
+	 * @param timeStamp
+	 * @param product
+	 */
+	public StockDTO(@NotNull(message = "Stock Id cannot be null") String stockId,
+			@NotNull(message = "Quanitity value cannot be null") @Min(value = 1, message = "CANNOT MAKE STOCK WITH ZERO QUANTITY  FOR PRODUCT AT LEAST ONE MUST BE EXIST") int quantity,
+			int soldQuantity, Date timeStamp, @NotNull(message = "Product cannot be null") ProductDTO product) {
+		this.stockId = stockId;
+		this.product = product;
+		this.quantity = quantity;
+		this.soldQuantity = soldQuantity;
+		this.timeStamp = timeStamp;
+	}
+
+	/**
+	 * @param stockId
+	 * @param quantity
+	 * @param soldQuantity
+	 * @param timeStamp
+	 */
+	public StockDTO(@NotNull(message = "Stock Id cannot be null") String stockId,
+			@NotNull(message = "Quanitity value cannot be null") @Min(value = 1, message = "CANNOT MAKE STOCK WITH ZERO QUANTITY  FOR PRODUCT AT LEAST ONE MUST BE EXIST") int quantity,
+			int soldQuantity, Date timeStamp) {
+		super();
+		this.stockId = stockId;
+		this.quantity = quantity;
+		this.soldQuantity = soldQuantity;
+		this.timeStamp = timeStamp;
+	}
 
 	/**
 	 * @return the stockId
@@ -90,15 +129,15 @@ public class StockDTO extends BaseDTO {
 	public void setSoldQuantity(int soldQuantity) {
 		this.soldQuantity = soldQuantity;
 	}
-	
+
 	/**
 	 * @return the timeStamp
 	 */
 	public Date getTimeStamp() {
-		
-		if(this.timeStamp == null)
+
+		if (this.timeStamp == null)
 			this.timeStamp = new Date();
-				
+
 		return this.timeStamp;
 	}
 
@@ -108,7 +147,5 @@ public class StockDTO extends BaseDTO {
 	public void setTimeStamp(Date timeStamp) {
 		this.timeStamp = timeStamp;
 	}
-	
-	
 
 }
