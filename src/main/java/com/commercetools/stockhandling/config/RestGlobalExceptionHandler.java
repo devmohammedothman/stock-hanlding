@@ -1,7 +1,7 @@
 /**
  * 
  */
-package com.commercetools.stockhandling.utils;
+package com.commercetools.stockhandling.config;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -12,6 +12,11 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
+
+import com.commercetools.stockhandling.utils.ResponseError;
+import com.commercetools.stockhandling.utils.SnippetUtils;
+import com.commercetools.stockhandling.utils.StatusCode;
+import com.commercetools.stockhandling.utils.StockHandlingException;
 
 /**
  * Helper Class that Handle all controller exceptions

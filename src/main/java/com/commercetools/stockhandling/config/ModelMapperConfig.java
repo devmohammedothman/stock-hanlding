@@ -1,7 +1,7 @@
 /**
  * 
  */
-package com.commercetools.stockhandling.utils;
+package com.commercetools.stockhandling.config;
 
 import org.modelmapper.ModelMapper;
 import org.modelmapper.convention.MatchingStrategies;
