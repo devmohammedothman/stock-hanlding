@@ -1,14 +1,12 @@
 sudo: required
 language: java
 jdk: oraclejdk8
-# Can't update to xenial distribution (ubuntu 16.04) bause of the Java JDK restriction (Not supporting )
 dist: trusty
-
-# Using -q Quiet output which only show errors, to overcome TravisCI log limit issue
-script: mvn clean install -Dmaven.test.skip -q -B -V | grep -v DEBUG;
+before-install:
+ - ./mvnw install -DskipTests=true -Dmaven.javadoc.skip=true -B -V
+script:
+  - ./mvnw test -B
 
 cache:
   directories:
    - $HOME/.m2
-   - /home/travis/build/wso2/carbon-apimgt/features/apimgt/org.wso2.carbon.apimgt.publisher.feature/src/main/resources/publisher-new/node_modules
-   - /home/travis/build/wso2/carbon-apimgt/features/apimgt/org.wso2.carbon.apimgt.store.feature/src/main/resources/store-new/node_modules
