@@ -2,7 +2,3 @@ sudo: required
 language: java
 jdk: oraclejdk8
 dist: trusty 
-before-install:
- - ./mvnw install -DskipTests=true -Dmaven.javadoc.skip=true -B -V
-script:
- - ./mvnw test -B
