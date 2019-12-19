@@ -3,6 +3,6 @@ language: java
 jdk: oraclejdk8
 dist: trusty 
 before-install:
- - mvn install -DskipTests=true -Dmaven.javadoc.skip=true -B -V
+ - mvn compile
 script:
- - mvn test -B
+ - mvn install -DskipTests=true -Dmaven.javadoc.skip=true -B -V
