@@ -1,7 +1,10 @@
 sudo: required
 language: java
 before-install:
- -  ./mvnw install -DskipTests=true -Dmaven.javadoc.skip=true -B -V
+ -  sudo ./mvnw install -DskipTests=true -Dmaven.javadoc.skip=true -B -V
 script:
-  -  ./mvnw test -B
+  -  sudo ./mvnw test -B
+cache:
+ directories:
+   - $HOME/.m2
 
